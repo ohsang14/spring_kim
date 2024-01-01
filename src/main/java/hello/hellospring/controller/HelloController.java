@@ -5,26 +5,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 @Controller
-public class HelloController {
+public class HelloController{
     @GetMapping("hello")
-    public String hello(Model model) {
-        model.addAttribute("data", "spring");
+    public String hello(Model model){
+        model.addAttribute("data","spring!!");
         return "hello";
     }
-
     @GetMapping("hello-mvc")
-    public String helloMvc(@RequestParam(value = "name") String name, Model model) {
-        model.addAttribute("name", name);
+    public String helloMvc(@RequestParam("name")String name,
+                           Model model){
+        model.addAttribute("name",name);
         return "hello-template";
     }
-
     @GetMapping("hello-string")
-    @ResponseBody
-    public String helloString(@RequestParam("name") String name) {
-        return "hello " + name; // "hello spring"
-
+    @ResponseBody // 응답하는 body부분에 직접 넣어주는것
+    public String helloString(@RequestParam("name")String name){
+        return "hello " + name; // "hello spring "
     }
 
     @GetMapping("hello-api")
@@ -35,16 +32,16 @@ public class HelloController {
         return hello;
 
     }
+        static class Hello {
+            private String name;
 
-    static class Hello {
-        private String name;
+            public String getName() {
+                return name;
+            }
 
-        public String getName() {
-            return name;
+            public void setName(String name) {
+                this.name = name;
+            }
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 }
